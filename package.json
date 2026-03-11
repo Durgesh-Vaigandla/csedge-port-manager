@@ -2,7 +2,7 @@
   "name": "csedge-port-manager",
   "displayName": "CSEdge Port Manager",
   "description": "Real-time port monitoring and safe process termination for local developer workflows.",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "publisher": "csedge",
   "license": "MIT",
   "author": {
@@ -33,7 +33,7 @@
   "engines": {
     "vscode": "^1.95.0"
   },
-  "icon": "media/marketplace-icon.png",
+  "icon": "media/logo.jpg",
   "main": "./dist/extension.js",
   "activationEvents": [
     "onView:csedgePortManager.panel",

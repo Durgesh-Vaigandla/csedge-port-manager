@@ -1,5 +1,3 @@
-![CSEdge Logo](./media/logo.png)
-
 # CSEdge Port Manager – Real-time Local Port Monitoring for Developers
 
 CSEdge Port Manager is a production-focused Visual Studio Code extension for monitoring active local ports and safely terminating the processes bound to them. It is designed for developers who routinely work with frontend apps, backend services, APIs, local servers, and multi-service development environments where port visibility and control are operational requirements.
