@@ -1,0 +1,200 @@
+{
+  "name": "csedge-port-manager",
+  "displayName": "CSEdge Port Manager",
+  "description": "Real-time port monitoring and safe process termination for local developer workflows.",
+  "version": "1.0.0",
+  "publisher": "csedge",
+  "license": "MIT",
+  "author": {
+    "name": "CSEdge"
+  },
+  "homepage": "https://csedge.co",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/durgesh-vaigandla/csedge-port-manager"
+  },
+  "bugs": {
+    "url": "https://github.com/durgesh-vaigandla/csedge-port-manager/issues"
+  },
+  "categories": [
+    "Other",
+    "Testing",
+    "Visualization"
+  ],
+  "keywords": [
+    "ports",
+    "process",
+    "monitoring",
+    "developer-tools",
+    "localhost",
+    "networking",
+    "vscode-extension"
+  ],
+  "engines": {
+    "vscode": "^1.95.0"
+  },
+  "icon": "media/marketplace-icon.png",
+  "main": "./dist/extension.js",
+  "activationEvents": [
+    "onView:csedgePortManager.panel",
+    "onCommand:csedgePortManager.showPorts",
+    "onCommand:csedgePortManager.refreshPorts",
+    "onCommand:csedgePortManager.killPort"
+  ],
+  "contributes": {
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "csedgePortManager",
+          "title": "Ports",
+          "icon": "media/activity-bar.svg"
+        }
+      ]
+    },
+    "views": {
+      "csedgePortManager": [
+        {
+          "id": "csedgePortManager.panel",
+          "name": "Running Ports"
+        }
+      ]
+    },
+    "commands": [
+      {
+        "command": "csedgePortManager.showPorts",
+        "title": "CSEdge: Show Running Ports",
+        "category": "CSEdge"
+      },
+      {
+        "command": "csedgePortManager.refreshPorts",
+        "title": "CSEdge: Refresh Port List",
+        "category": "CSEdge",
+        "icon": "$(refresh)"
+      },
+      {
+        "command": "csedgePortManager.killPort",
+        "title": "CSEdge: Kill Port",
+        "category": "CSEdge",
+        "icon": "$(trash)"
+      },
+      {
+        "command": "csedgePortManager.copyPort",
+        "title": "CSEdge: Copy Port",
+        "category": "CSEdge",
+        "icon": "$(copy)"
+      },
+      {
+        "command": "csedgePortManager.openBrowser",
+        "title": "CSEdge: Open in Browser",
+        "category": "CSEdge",
+        "icon": "$(globe)"
+      },
+      {
+        "command": "csedgePortManager.viewProcessDetails",
+        "title": "CSEdge: View Process Details",
+        "category": "CSEdge",
+        "icon": "$(info)"
+      },
+      {
+        "command": "csedgePortManager.sortByPort",
+        "title": "CSEdge: Sort Ports by Port Number",
+        "category": "CSEdge"
+      },
+      {
+        "command": "csedgePortManager.sortByProcess",
+        "title": "CSEdge: Sort Ports by Process Name",
+        "category": "CSEdge"
+      },
+      {
+        "command": "csedgePortManager.sortByPid",
+        "title": "CSEdge: Sort Ports by PID",
+        "category": "CSEdge"
+      }
+    ],
+    "menus": {
+      "view/title": [
+        {
+          "command": "csedgePortManager.refreshPorts",
+          "when": "view == csedgePortManager.panel",
+          "group": "navigation"
+        },
+        {
+          "command": "csedgePortManager.sortByPort",
+          "when": "view == csedgePortManager.panel",
+          "group": "navigation@2"
+        },
+        {
+          "command": "csedgePortManager.sortByProcess",
+          "when": "view == csedgePortManager.panel",
+          "group": "navigation@3"
+        },
+        {
+          "command": "csedgePortManager.sortByPid",
+          "when": "view == csedgePortManager.panel",
+          "group": "navigation@4"
+        }
+      ],
+      "view/item/context": [
+        {
+          "command": "csedgePortManager.openBrowser",
+          "when": "view == csedgePortManager.panel && viewItem == portItem",
+          "group": "inline"
+        },
+        {
+          "command": "csedgePortManager.killPort",
+          "when": "view == csedgePortManager.panel && viewItem == portItem",
+          "group": "inline@2"
+        },
+        {
+          "command": "csedgePortManager.copyPort",
+          "when": "view == csedgePortManager.panel && viewItem == portItem",
+          "group": "navigation@1"
+        },
+        {
+          "command": "csedgePortManager.viewProcessDetails",
+          "when": "view == csedgePortManager.panel && viewItem == portItem",
+          "group": "navigation@2"
+        },
+        {
+          "command": "csedgePortManager.refreshPorts",
+          "when": "view == csedgePortManager.panel && viewItem == portGroupItem",
+          "group": "inline"
+        }
+      ]
+    },
+    "configuration": {
+      "title": "CSEdge Port Manager",
+      "properties": {
+        "csedgePortManager.pollingIntervalMs": {
+          "type": "number",
+          "default": 5000,
+          "minimum": 2000,
+          "maximum": 60000,
+          "description": "Polling interval in milliseconds for background port monitoring."
+        },
+        "csedgePortManager.autoOpenLocalhost": {
+          "type": "boolean",
+          "default": true,
+          "description": "Enable quick open actions for localhost URLs in the port list."
+        },
+        "csedgePortManager.confirmBeforeKill": {
+          "type": "boolean",
+          "default": true,
+          "description": "Show a confirmation dialog before terminating a process."
+        }
+      }
+    }
+  },
+  "scripts": {
+    "build": "node ./scripts/clean-dist.mjs && tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "lint": "tsc --noEmit -p ./",
+    "package": "vsce package"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.1",
+    "@types/vscode": "^1.95.0",
+    "typescript": "^5.7.2",
+    "@vscode/vsce": "^2.31.1"
+  }
+}
