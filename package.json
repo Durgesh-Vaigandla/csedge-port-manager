@@ -189,7 +189,7 @@
     "build": "node ./scripts/clean-dist.mjs && tsc -p ./",
     "watch": "tsc -watch -p ./",
     "lint": "tsc --noEmit -p ./",
-    "package": "vsce package"
+    "package": "npm run build && vsce package"
   },
   "devDependencies": {
     "@types/node": "^22.10.1",
